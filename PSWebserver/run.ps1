@@ -45,4 +45,4 @@ $Out = @"
     }
 "@
 
-Print-Response -Out $Out
+Print-Response -Out "$env:COMPUTERNAME"
