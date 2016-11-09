@@ -45,4 +45,4 @@ $Out = @"
     }
 "@
 
-Print-Response -Out "$env:COMPUTERNAME"
+Print-Response -Out "$env:AZUREJOBS_EXTENSION_VERSION`n$env:AzureWebJobsStorage"
