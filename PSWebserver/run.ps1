@@ -13,36 +13,61 @@ function Print-Response
     Out-File -Encoding Ascii -FilePath $res -inputObject $Out -Append
 }
 
-function New-Guid
-{
-    [guid]::NewGuid().Guid.ToUpper()
-}
-
 #endregion
 
-$requestBody = Get-Content $req -Raw | ConvertFrom-Json
-
-<# echo
-Print-Response -Out $requestBody
-#Print-Response -Out $(Get-Content $req -Raw )
-#>
-
-$Out = @"
+if($REQ_QUERY_ECHOENVVAR)
+{
+    Print-Response -Out "$env:TheMeaningOfLife"
+}
+elseif($REQ_QUERY_TEMPLATE)
+{
+    $Out = @"
     {
-      "apiVersion": "2015-08-01",
-      "type": "Microsoft.Web/sites/config",
-      "name": "[concat(variables('webApp').backend.name, '/connectionstrings')]",
-      "dependsOn": [
-        "[concat('Microsoft.Web/Sites/', variables('webApp').backend.name)]",
-        "[concat('Microsoft.Sql/servers/', variables('sqlServer').name, '/databases/', variables('sqlServer').database.name)]"
-      ],
-      "properties": {
-        "[variables('sqlServer').database.name]": {
-          "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServer').name), '2014-04-01-preview').fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('sqlServer').database.name, ';User Id=', variables('sqlServer').administratorLogin, '@', variables('sqlServer').name, ';Password=', variables('sqlServer').administratorLoginPassword, ';')]",
-          "type": "SQLServer"
+    "`$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "TheMeaningOfLife": {
+        "type": "int"
+        },        
+    },
+    "variables": {},
+    "resources": [
+        {
+        "apiVersion": "2015-08-01",
+        "type": "Microsoft.Web/sites/config",
+        "name": "[concat('$REQ_QUERY_SITENAME', '/appsettings')]",
+        "location": "West Europe",
+        "properties": {
+            "FUNCTIONS_EXTENSION_VERSION": "~0.9",
+            "AZUREJOBS_EXTENSION_VERSION": "beta",
+            "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0",
+            "TheMeaningOfLife": "[parameters('TheMeaningOfLife')]"
         }
-      }
-    }
+        }
+    ],
+    "outputs": {}
+    }      
 "@
 
-Print-Response -Out "$env:AZUREJOBS_EXTENSION_VERSION`n$env:AzureWebJobsStorage"
+    Print-Response -Out $Out
+}
+elseif($REQ_QUERY_PARAMETERS)
+{
+    $Out = @"
+{
+    "`$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "TheMeaningOfLife": {
+            "value": 42
+        }
+    }
+}    
+"@
+
+    Print-Response -Out $Out    
+}
+else
+{
+    Print-Response -Out "Ready to serve..."    
+}
