@@ -38,11 +38,11 @@ elseif($REQ_QUERY_TEMPLATE)
         "name": "[concat('$REQ_QUERY_SITENAME', '/appsettings')]",
         "location": "West Europe",
         "properties": {
-            "AzureWebJobsDashboard": "",
-            "AzureWebJobsStorage": "",
-            "FUNCTIONS_EXTENSION_VERSION": "~0.9",
-            "AZUREJOBS_EXTENSION_VERSION": "beta",
-            "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0",
+            "AzureWebJobsDashboard":  "DefaultEndpointsProtocol=https;AccountName=function2e0828ab8e18;AccountKey=b0KRwRJhJTT3F+1XY8BgWyMG1USEZd/cMkVle+gG1PrrSDWjMSNjifoEca1NTf+QQrbwNObKUVk2YQh5vU2prw==",
+            "AzureWebJobsStorage":  "DefaultEndpointsProtocol=https;AccountName=function2e0828ab8e18;AccountKey=b0KRwRJhJTT3F+1XY8BgWyMG1USEZd/cMkVle+gG1PrrSDWjMSNjifoEca1NTf+QQrbwNObKUVk2YQh5vU2prw==",
+            "FUNCTIONS_EXTENSION_VERSION":  "~0.9",
+            "AZUREJOBS_EXTENSION_VERSION":  "beta",
+            "WEBSITE_NODE_DEFAULT_VERSION":  "6.5.0",
             "TheMeaningOfLife": "[parameters('TheMeaningOfLife')]"
         }
         }
