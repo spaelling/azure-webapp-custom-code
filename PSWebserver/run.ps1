@@ -38,6 +38,8 @@ elseif($REQ_QUERY_TEMPLATE)
         "name": "[concat('$REQ_QUERY_SITENAME', '/appsettings')]",
         "location": "West Europe",
         "properties": {
+            "AzureWebJobsDashboard": "",
+            "AzureWebJobsStorage": "",
             "FUNCTIONS_EXTENSION_VERSION": "~0.9",
             "AZUREJOBS_EXTENSION_VERSION": "beta",
             "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0",
