@@ -1,4 +1,11 @@
-# Custom code on an Azure web app
+# Dynamic linked ARM templates using Azure Functions
+
+Greetings!
+
+I had some trouble figuring out a good descriptive title. That is at least a general description of what I want to show. The more specific purpose, for which I needed this in the first place, is providing some *unique* environment variables in an Azure web app, without having access to the app at all.
+I think that with this approach you can do much more than you would normally be able to with ARM templates, at the cost of complexity. But still I believe that the added complexity is kept at a minimum by using Azure Functions and PowerShell to provide the dynamic ARM template.
+
+Let's make ARM templates great again...
 
 There are many ways to get code into a web app (app service) in Azure, continous deployment, ftp, deploy fra TFS, etc.
 
